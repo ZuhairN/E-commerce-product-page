@@ -1,0 +1,219 @@
+:root {
+    --clr-orange: 26 100% 55%;
+    --clr-pale-orange: 25 100% 94%;
+    --clr-vd-blue: 220 13% 13%;
+    --clr-d-grayish-blue: 219 9% 45%;
+    --clr-l-grayish-blue: 223 64% 98%;
+    --clr-grayish-blue: 220 14% 75%;
+    --clr-white: 0 0% 100%;
+    --clr-black: 0 0% 0%;
+}
+
+body {
+    font-family: 'Kumbh Sans', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: hsl(var(--clr-black));
+}
+
+.flex {
+    display: flex;
+    gap: var(--gap, 1rem);
+}
+
+.navbar {
+    align-items: baseline;
+}
+
+.cart,
+.avatar {
+    cursor: pointer;
+}
+
+h2 {
+    color: hsl(var(--clr-orange));
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: .7rem;
+}
+
+h1 {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.details p:first-of-type {
+    color: hsl(var(--clr-d-grayish-blue));
+    font-size: .8rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.price {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.discount {
+    align-items: center;
+    background-color: hsl(var(--clr-pale-orange));
+    color: hsl(var(--clr-orange));
+    border-radius: 5px;
+    padding: 0.3rem .5rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+
+}
+
+.old-price {
+    color: hsl(var(--clr-grayish-blue));
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: line-through;
+    margin-left: auto;
+}
+
+.price-summary {
+    align-items: center;
+}
+
+.amount {
+    background-color: hsl(var(--clr-l-grayish-blue));
+    padding: 1rem;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.amount span {
+    font-weight: 700;
+}
+
+.add-item {
+    background-color: hsl(var(--clr-orange));
+    color: hsl(var(--clr-white));
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: .8rem;
+}
+
+/* .add-item svg{
+    width:13px;
+} */
+.add-item svg path {
+    fill: hsl(var(--clr-white));
+}
+
+@media (max-width: 35em) {
+    .navbar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        padding: 1rem 1.5rem 1.5rem;
+        background-color: hsl(var(--clr-white));
+    }
+
+    .nav {
+        flex-direction: column;
+        background-color: hsl(var(--clr-white));
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 30%;
+        z-index: 1000;
+        padding: 25% 1.5rem;
+        --gap: 1.5rem;
+        font-weight: 700;
+        transform: translateX(-100%);
+        transition: transform 250ms ease-out;
+    }
+
+    .navbar[aria-expanded='true'] .nav {
+        transform: translateX(0);
+    }
+
+    .navbar[aria-expanded='true'] .menu {
+        background-image: url(../images/icon-close.svg);
+    }
+
+    main {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-block: 4rem;
+    }
+
+    .menu {
+        background-color: transparent;
+        background-image: url(../images/icon-menu.svg);
+        background-repeat: no-repeat;
+        left: 1.5rem;
+        width: 1rem;
+        height: 1rem;
+        z-index: 2000;
+        cursor: pointer;
+    }
+
+    .cart {
+        margin-left: auto;
+    }
+
+    .avatar {
+        width: 25px;
+    }
+
+
+
+    .main-img {
+        background-size: cover;
+        width: 100%;
+        height: 100vw;
+        align-items: center;
+        justify-content: space-between;
+        padding-inline: 1rem;
+    }
+
+    .main-img div {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 8px;
+        background-color: hsl(var(--clr-white));
+        justify-content: center;
+        align-items: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .next {
+        background-image: url(../images/icon-next.svg);
+    }
+
+    .previous {
+        background-image: url(../images/icon-previous.svg);
+    }
+
+    .main-img img {
+        width: 8px;
+    }
+
+    .details {
+        flex-direction: column;
+        padding-inline: 1.5rem;
+    }
+
+    h1 {
+        max-width: 20ch;
+    }
+
+    p
+}
