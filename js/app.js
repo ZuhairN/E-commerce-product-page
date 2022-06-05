@@ -4,6 +4,7 @@ const menu = document.querySelector('.menu');
 const mainImg = document.querySelector('.main-img');
 const next = document.querySelector('.next');
 const previous = document.querySelector('.previous');
+const cart = document.querySelector('.cart');
 
 menu.addEventListener('click', (e) => {
   const nav = e.target.parentElement;
@@ -15,36 +16,35 @@ menu.addEventListener('click', (e) => {
 });
 
 next.addEventListener('click', () => {
-  let bgImg = mainImg.style;
+  const img = mainImg.getAttribute('src');
   for (let i = 1; i < 5; i++) {
-    if (bgImg.backgroundImage.indexOf(i) > 0) {
+    if (img.indexOf(i) > 0) {
       if (i < 4) {
-        bgImg.backgroundImage = bgImg.backgroundImage.replace(
-          `${i}`,
-          `${i + 1}`
-        );
+        mainImg.setAttribute('src', img.replace(`${i}`, `${i + 1}`));
         break;
       } else {
-        bgImg.backgroundImage = bgImg.backgroundImage.replace(`${i}`, '1');
+        mainImg.setAttribute('src', img.replace(`${i}`, '1'));
       }
     }
   }
 });
 
 previous.addEventListener('click', () => {
-  let bgImg = mainImg.style;
+  const img = mainImg.getAttribute('src');
   for (let i = 1; i < 5; i++) {
-    if (bgImg.backgroundImage.indexOf(i) > 0) {
+    if (img.indexOf(i) > 0) {
       if (i > 1) {
-        bgImg.backgroundImage = bgImg.backgroundImage.replace(
-          `${i}`,
-          `${i - 1}`
-        );
+        mainImg.setAttribute('src', img.replace(`${i}`, `${i - 1}`));
         break;
       } else {
-        bgImg.backgroundImage = bgImg.backgroundImage.replace(`${i}`, '4');
+        mainImg.setAttribute('src', img.replace(`${i}`, '4'));
         break;
       }
     }
   }
+});
+
+cart.addEventListener('click', () => {
+  const details = cart.children[0];
+  details.classList.toggle('active');
 });
