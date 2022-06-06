@@ -28,7 +28,7 @@ a {
   align-items: baseline;
 }
 
-.cart,
+.cart svg,
 .avatar {
   cursor: pointer;
 }
@@ -82,14 +82,27 @@ h1 {
 
 .amount {
   background-color: hsl(var(--clr-l-grayish-blue));
-  padding: 1rem;
   border-radius: 10px;
   justify-content: space-between;
   align-items: center;
 }
 
-.amount span {
+.amount div {
+  align-self: stretch;
+  align-items: center;
+  padding: 1rem;
+  min-height: 3rem;
+
+  cursor: pointer;
+}
+.amount div:hover img {
+  opacity: 0.6;
+}
+
+.amount .counter {
   font-weight: 700;
+  min-width: 1rem;
+  text-align: center;
 }
 
 .add-item {
@@ -102,6 +115,11 @@ h1 {
   font-weight: 700;
   font-size: 0.8rem;
   cursor: pointer;
+  box-shadow: 0 5px 10px -2px hsl(var(--clr-orange));
+}
+
+.add-item:hover {
+  opacity: 0.6;
 }
 
 .add-item svg path {
@@ -115,15 +133,8 @@ main {
   margin-block: 4rem;
 }
 
-.menu,
-.previous,
-.next {
-  display: none;
-}
-
 .cart {
   margin-left: auto;
-  background-image: url(../images/icon-cart.svg);
   background-size: cover;
   width: 22px;
   height: 20px;
@@ -154,7 +165,9 @@ h1 {
   flex-direction: column;
   gap: 1.5rem;
 }
-
+.cart:hover svg path {
+  fill: hsl(var(--clr-black));
+}
 .cart-details {
   position: fixed;
   font-weight: 700;
@@ -181,6 +194,7 @@ h1 {
   border-radius: 10px;
   opacity: 1;
   z-index: 2000;
+  box-shadow: 0 0 20px 3px hsl(var(--clr-d-grayish-blue) / 0.5);
 }
 .cart-details h4 {
   padding: 1.5rem;
@@ -192,7 +206,85 @@ h1 {
   align-items: center;
   color: hsl(var(--clr-d-grayish-blue));
 }
+.next,
+.previous {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  z-index: 1000;
+  background-color: #fff;
+  cursor: pointer;
+}
 
+.previous {
+  left: 1rem;
+}
+.next img,
+.previous img {
+  width: 0.5rem;
+  height: 0.75rem;
+}
+
+.img-view {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  position: fixed;
+}
+
+.empty-cart {
+  flex-direction: column;
+  gap: 0;
+  line-height: 1.5;
+  padding: 5%;
+  padding-block: 0 10%;
+}
+.empty-cart button {
+  font: inherit;
+  background-color: hsl(var(--clr-orange));
+  color: hsl(var(--clr-white));
+  border: none;
+  border-radius: 10px;
+  flex-grow: 1;
+  align-self: stretch;
+  cursor: pointer;
+}
+.empty-cart div {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+.empty-cart span {
+  color: hsl(var(--clr-black));
+}
+
+.empty-cart img:first-of-type {
+  width: 15%;
+  border-radius: 5px;
+}
+.empty-cart .remove {
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.item-count {
+  position: absolute;
+  width: 1.3rem;
+  text-align: center;
+  color: hsl(var(--clr-white));
+  font-size: 0.7rem;
+  padding-block: 0.1rem;
+  font-weight: 700;
+  background-color: hsl(var(--clr-orange));
+  border-radius: 20px;
+}
 @media (max-width: 46.999em) {
   .navbar {
     position: fixed;
@@ -240,29 +332,6 @@ h1 {
   .imgs {
     position: relative;
   }
-  .next,
-  .previous {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: 50%;
-    right: 1rem;
-    width: 2rem;
-    height: 2rem;
-    border-radius: 50%;
-    z-index: 1000;
-    background-color: #fff;
-    cursor: pointer;
-  }
-  .previous {
-    left: 1rem;
-  }
-  .next img,
-  .previous img {
-    width: 0.5rem;
-    height: 0.75rem;
-  }
 
   .add-to-cart {
     flex-direction: column;
@@ -271,9 +340,19 @@ h1 {
   .thumbs {
     display: none;
   }
+
+  .item-count {
+    top: 1rem;
+    right: 3.5rem;
+  }
 }
 
 @media (min-width: 47em) {
+  .menu,
+  .previous,
+  .next {
+    display: none;
+  }
   body {
     min-width: 47rem;
     max-width: 80%;
@@ -281,19 +360,32 @@ h1 {
   }
 
   .navbar {
-    padding-block: 1.5rem 2rem;
     align-items: center;
     gap: 3rem;
     border-bottom: 1px solid hsl(var(--clr-grayish-blue) / 0.4);
   }
 
-  .nav {
+  .navbar > *:not(.nav) .nav {
     gap: 2rem;
+  }
+  .nav li {
+    padding-top: 3rem;
+  }
+  .nav li a {
+    display: inline-block;
+    padding-bottom: 3rem;
+    border-block: 3.5px solid hsl(var(--clr-white));
+  }
+  .nav li a:hover {
+    border-bottom: 3.5px solid hsl(var(--clr-orange));
   }
 
   a {
     color: hsl(var(--clr-d-grayish-blue) / 0.8);
     font-size: 0.9rem;
+  }
+  a:hover {
+    color: hsl(var(--clr-black) / 0.7);
   }
 
   .avatar {
@@ -320,9 +412,9 @@ h1 {
   }
 
   .main-img {
+    cursor: pointer;
     border-radius: 15px;
   }
-
   .details {
     padding-inline: 0;
   }
@@ -342,7 +434,7 @@ h1 {
   }
 
   .add-item {
-    flex-grow: 2;
+    flex-grow: 3;
   }
 
   .thumbs {
@@ -351,23 +443,99 @@ h1 {
   }
 
   .thumbs img {
-    flex-grow: 1;
     width: 20%;
+    border-radius: 10px;
+    flex-grow: 1;
+  }
+  .thumbs div {
+    display: flex;
     border-radius: 10px;
     cursor: pointer;
   }
+  .thumbs div.active {
+    outline: 3px solid hsl(var(--clr-orange));
+  }
+  .thumbs div.active img {
+    opacity: 0.3;
+  }
+  .thumbs img:hover {
+    opacity: 0.5;
+  }
+
   .cart {
     position: relative;
   }
+
   .cart-details {
     top: 0;
     right: 0;
   }
   .cart-details.active {
     position: absolute;
-    width: 25rem;
+    width: 22rem;
+    height: 15rem;
     top: 3.5rem;
     right: -14vw;
-    box-shadow: 0 0 20px 3px hsl(var(--clr-d-grayish-blue) / 0.5);
+  }
+
+  .img-view.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    top: 0;
+    left: 0;
+    background-color: hsl(var(--clr-black) / 0.75);
+    width: 100vw;
+    height: 100vh;
+    /* margin-inline: auto; */
+    z-index: 9999;
+  }
+  .img-view.active .main-img {
+    position: relative;
+  }
+  .img-view.active .thumbs {
+    max-width: 35%;
+    min-width: 30rem;
+    padding-inline: 5%;
+  }
+  .img-view.active .img-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 35%;
+    min-width: 30rem;
+    position: relative;
+  }
+  .img-view.active .img-container svg {
+    align-self: end;
+    cursor: pointer;
+  }
+
+  .img-view.active .img-container svg path {
+    fill: hsl(var(--clr-white));
+  }
+  .img-view.active .img-container svg:hover path {
+    fill: hsl(var(--clr-orange));
+  }
+  .img-view.active .thumbs div {
+    background-color: hsl(var(--clr-white));
+  }
+  .img-view.active .next,
+  .img-view.active .previous {
+    display: flex;
+    position: absolute;
+    top: calc(50% - 1rem);
+  }
+  .img-view.active .next {
+    right: -1rem;
+  }
+  .img-view.active .previous {
+    left: -1rem;
+  }
+  .item-count {
+    top: -0.4rem;
+    right: -0.4rem;
   }
 }
