@@ -6,13 +6,15 @@ const next = document.querySelectorAll('.next');
 const previous = document.querySelectorAll('.previous');
 const cart = document.querySelector('.cart');
 const thumbs = document.querySelectorAll('.thumbs');
-const imgView = document.querySelectorAll('.img-view');
+const lightbox = document.querySelector('.lightbox');
 const closeBox = document.querySelector('.close-box');
 const amount = document.querySelector('.amount');
 const counter = document.querySelector('.counter');
 const addItem = document.querySelector('.add-item');
-const emptyCart = document.querySelector('.empty-cart');
+const emptyCart = document.querySelector('.cart-empty');
 
+let count = 0;
+// ----------------------------------------------toggle-navbar
 menu.addEventListener('click', (e) => {
   const nav = e.target.parentElement;
   if (nav.getAttribute('aria-expanded') === 'false') {
@@ -22,6 +24,7 @@ menu.addEventListener('click', (e) => {
   }
 });
 
+// ----------------------------------------------navigate-between-imgs/thumbs
 const prev = function (a) {
   const img = mainImg[a].getAttribute('src');
   for (let j = 0; j < 2; j++) {
@@ -102,19 +105,7 @@ next[1].addEventListener('click', () => {
   nex(1);
   activeThumb();
 });
-
-cart.addEventListener('click', (e) => {
-  const tag = e.target.tagName;
-  const removeItem = e.target.getAttribute('class');
-  if (tag === 'svg' || tag === 'path') {
-    const details = cart.children[0];
-    details.classList.toggle('active');
-  } else if (removeItem && removeItem === 'remove') {
-    emptyCart.textContent = 'Your cart is empty.';
-    cart.children[2].remove();
-  }
-});
-
+// --------control-by-thumbs
 const thumbListener = function (e) {
   const tag = e.target.tagName;
   let img = e.target.getAttribute('src');
@@ -140,44 +131,56 @@ thumbs[1].addEventListener('click', (e) => {
 });
 
 mainImg[0].addEventListener('click', () => {
-  imgView[0].classList.add('active');
+  lightbox.classList.add('active');
 });
 
 closeBox.addEventListener('click', () => {
-  imgView[0].classList.remove('active');
+  lightbox.classList.remove('active');
 });
 
-let count = 0;
+// ----------------------------------------------toggle-cart/remove-item
+cart.addEventListener('click', (e) => {
+  const tag = e.target.tagName;
+  const removeItem = e.target.getAttribute('class');
+  if (tag === 'svg' || tag === 'path') {
+    const details = cart.children[0];
+    details.classList.toggle('active');
+  } else if (removeItem && removeItem === 'remove') {
+    cart.children[2].remove();
+    emptyCart.textContent = 'Your cart is empty.';
+    count = 0;
+  }
+});
+
 amount.addEventListener('click', (e) => {
   const sign = e.target.getAttribute('class');
   if (sign && sign.indexOf('plus') > -1) {
     count++;
     counter.textContent = count;
-    console.log(count);
   } else if (sign && sign.indexOf('minus') > -1) {
     if (count > 0) {
       count--;
       counter.textContent = count;
-      console.log(count);
     } else {
       count = 0;
-      console.log(count);
     }
   }
 });
-
+// ----------------------------------------------------add-item-to-cart
 addItem.addEventListener('click', () => {
   if (counter) {
+    if (cart.children[2]) {
+      cart.children[2].remove();
+    }
     emptyCart.textContent = '';
-
     const item = document.createElement('div');
     emptyCart.append(item);
     const itemImg = document.createElement('img');
     itemImg.src = './images/image-product-1-thumbnail.jpg';
     const itemName = document.createElement('p');
-    itemName.innerHTML = `Fall Limited Edition Sneakers <br> $125.00 x ${
-      counter.textContent
-    } <span>$${parseInt(counter.textContent) * 125}.00</span>`;
+    itemName.innerHTML = `Fall Limited Edition Sneakers <br> $125.00 x ${count} <span>$${
+      count * 125
+    }.00</span>`;
     const itemRemove = document.createElement('img');
     itemRemove.src = './images/icon-delete.svg';
     itemRemove.setAttribute('class', 'remove');
@@ -193,7 +196,6 @@ addItem.addEventListener('click', () => {
     no.setAttribute('class', 'item-count');
     no.textContent = count;
     cart.append(no);
-    count = 0;
     counter.textContent = '0';
   }
 });

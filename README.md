@@ -10,11 +10,7 @@ This is a solution to the [E-commerce product page challenge on Frontend Mentor]
   - [Link](#link)
 - [My process](#my-process)
   - [Built with](#built-with)
-  - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
-- [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -31,6 +27,9 @@ Users should be able to:
 
 ### Screenshot
 
+![desktop-homepage](./images/Desktop-E-commerce-product-page.png)
+![mobile-homepage](./images/Mobile-E-commerce-product-page.png)
+
 ### Link
 
 - [Live Site URL](https://zuhairn.github.io/E-commerce-product-page/)
@@ -45,3 +44,6 @@ Users should be able to:
 - Mobile-first workflow
 
 ### Continued development
+
+- Problem Solving
+- Organizing Code and Refactoring
