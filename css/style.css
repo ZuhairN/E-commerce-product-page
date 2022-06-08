@@ -47,8 +47,7 @@ body {
 }
 .next img,
 .previous img {
-  width: 0.5rem;
-  height: 0.75rem;
+  width: 1.5rem;
 }
 
 .navbar-list a {
@@ -82,24 +81,21 @@ body {
   background-color: #fff;
   box-shadow: 0 0 20px 3px hsl(var(--clr-d-grayish-blue) / 0.5);
   position: absolute;
-  top: 1.5rem;
-  right: 4.5rem;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  top: 0;
+  right: 0;
   opacity: 0;
   z-index: -1;
-  transition: all 150ms ease-out;
+  transition: all 250ms ease-out;
+}
+.cart-details.active {
+  opacity: 1;
+  z-index: 2000;
 }
 .cart-details h4 {
   padding: 1.5rem;
   border-bottom: 1px solid hsl(var(--clr-grayish-blue) / 0.4);
 }
 
-.cart-details.active {
-  opacity: 1;
-  z-index: 2000;
-}
 .cart-empty {
   color: hsl(var(--clr-d-grayish-blue));
   flex-direction: column;
@@ -117,7 +113,7 @@ body {
   border: none;
   border-radius: 5px;
   width: 100%;
-  height: 4rem;
+  height: 3.5rem;
   cursor: pointer;
 }
 .cart-empty div {
@@ -226,6 +222,14 @@ body {
 .lightbox .previous {
   position: absolute;
   top: calc(50% - 1rem);
+}
+.lightbox .next svg,
+.lightbox .previous svg {
+  width: 1.5rem;
+}
+.lightbox .next:hover path,
+.lightbox .previous:hover path {
+  fill: hsl(var(--clr-orange));
 }
 .lightbox .next {
   right: -1rem;
@@ -363,11 +367,13 @@ body {
   }
 
   /* -------------------cart------------------- */
-  .cart-details.active {
-    top: 5rem;
-    right: 3%;
+  .cart-details {
     width: 94%;
-    height: 15rem;
+    min-height: 15rem;
+    transform: translate(35vw, -40%) scale(0);
+  }
+  .cart-details.active {
+    transform: translate(-3%, 5rem) scale(1);
   }
   .cart .item-count {
     top: 1rem;
@@ -451,14 +457,12 @@ body {
     right: -0.4rem;
   }
   .cart-details {
-    top: 0;
-    right: 0;
+    transform: translate(10.5rem, -50%) scale(0);
+    width: 22rem;
+    min-height: 15rem;
   }
   .cart-details.active {
-    top: 3.5rem;
-    right: -14vw;
-    width: 22rem;
-    height: 15rem;
+    transform: translate(14vw, 3.5rem) scale(1);
   }
 
   .avatar {

@@ -14,6 +14,9 @@ const addItem = document.querySelector('.add-item');
 const emptyCart = document.querySelector('.cart-empty');
 
 let count = 0;
+let total = 0;
+let itemsNo;
+
 // ----------------------------------------------toggle-navbar
 menu.addEventListener('click', (e) => {
   const nav = e.target.parentElement;
@@ -146,9 +149,14 @@ cart.addEventListener('click', (e) => {
     const details = cart.children[0];
     details.classList.toggle('active');
   } else if (removeItem && removeItem === 'remove') {
-    cart.children[2].remove();
-    emptyCart.textContent = 'Your cart is empty.';
-    count = 0;
+    console.log(cart.children[0]);
+    e.target.parentElement.remove();
+    total--;
+    cart.children[2].textContent = total;
+    if (!total) {
+      emptyCart.textContent = 'Your cart is empty.';
+      cart.children[2].remove();
+    }
   }
 });
 
@@ -168,13 +176,12 @@ amount.addEventListener('click', (e) => {
 });
 // ----------------------------------------------------add-item-to-cart
 addItem.addEventListener('click', () => {
-  if (counter) {
-    if (cart.children[2]) {
-      cart.children[2].remove();
+  if (count) {
+    if (!total) {
+      emptyCart.textContent = '';
     }
-    emptyCart.textContent = '';
     const item = document.createElement('div');
-    emptyCart.append(item);
+    emptyCart.prepend(item);
     const itemImg = document.createElement('img');
     itemImg.src = './images/image-product-1-thumbnail.jpg';
     const itemName = document.createElement('p');
@@ -187,15 +194,17 @@ addItem.addEventListener('click', () => {
     item.append(itemImg);
     item.append(itemName);
     item.append(itemRemove);
-
-    const checkout = document.createElement('button');
-    checkout.textContent = 'Checkout';
-    emptyCart.append(checkout);
-
-    const no = document.createElement('div');
-    no.setAttribute('class', 'item-count');
-    no.textContent = count;
-    cart.append(no);
-    counter.textContent = '0';
+    if (!total) {
+      const checkout = document.createElement('button');
+      checkout.textContent = 'Checkout';
+      emptyCart.append(checkout);
+      itemsNo = document.createElement('div');
+      itemsNo.setAttribute('class', 'item-count');
+      cart.append(itemsNo);
+    }
+    total++;
+    itemsNo.textContent = total;
+    count = 0;
+    counter.textContent = count;
   }
 });
